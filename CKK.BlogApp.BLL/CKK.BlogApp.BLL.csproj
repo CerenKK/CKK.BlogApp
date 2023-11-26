@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CKK.BlogApp.DAL\CKK.BlogApp.DAL.csproj" />
+    <ProjectReference Include="..\CKK.BlogApp.DTOs\CKK.BlogApp.DTOs.csproj" />
+  </ItemGroup>
+
 </Project>

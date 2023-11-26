@@ -17,5 +17,7 @@ namespace CKK.BlogApp.Entities.Entities
         public int CategoryId { get; set; }
         public Image Image { get; set; }
         public int ImageId { get; set; }
+        public AppUser AppUser { get; set; }
+        public int AppUserId { get; set; }
     }
 }
