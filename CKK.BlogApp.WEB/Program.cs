@@ -1,4 +1,6 @@
 using CKK.BlogApp.DAL.Extention;
+using CKK.BlogApp.DAL.Uow.Abstract;
+using CKK.BlogApp.DAL.Uow.Concrete;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDALDependencies(builder.Configuration);
+builder.Services.AddDALDependencies(builder.Configuration.GetConnectionString("SqlCon"));
+
+builder.Services.AddScoped<IUow, Uow>();
 
 
 var app = builder.Build();

@@ -18,6 +18,6 @@ namespace CKK.BlogApp.Entities.Entities
         public Image Image { get; set; }
         public int ImageId { get; set; }
         public AppUser AppUser { get; set; }
-        public int AppUserId { get; set; }
+        public string AppUserId { get; set; }
     }
 }

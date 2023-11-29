@@ -9,11 +9,11 @@ namespace CKK.BlogApp.DAL.Repository
 {
     public interface IRepository <T> where T : class, IEntity
     {
-        Task AddAsync (T entity);
-        Task UpdateAsync (T entity);
-        Task DeleteAsync (T entity);
-        Task<T> GetAllAsync();
-        Task<T> GetByIdAsync (int id);
+        void Add (T entity);
+        void Update (T entity);
+        void Delete (T entity);
+        void GetAll();
+        void GetById (int id);
         IQueryable<T> GetQueryable();
     }
 }

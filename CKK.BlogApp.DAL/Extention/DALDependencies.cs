@@ -1,10 +1,12 @@
 ﻿using CKK.BlogApp.DAL.Context;
 using CKK.BlogApp.DAL.IdentityConfigurations;
+using CKK.BlogApp.DAL.Uow.Abstract;
 using CKK.BlogApp.Entities.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using CKK.BlogApp.DAL.Uow.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +17,11 @@ namespace CKK.BlogApp.DAL.Extention
 {
     public static class DALDependencies
     {
-        public static void AddDALDependencies( this IServiceCollection services, IConfiguration config)
+        public static void AddDALDependencies( this IServiceCollection services, string conString)
         {
             services.AddDbContext<AppDbContext>(x => 
             {
-                x.UseSqlServer(config.GetConnectionString("SqlCon"));  
+                x.UseSqlServer(conString);  
                 
             });
 
@@ -42,8 +44,37 @@ namespace CKK.BlogApp.DAL.Extention
             .AddEntityFrameworkStores<AppDbContext>();
 
 
-        }
+            services.Configure<SecurityStampValidatorOptions>(option =>
+            {
+                option.ValidationInterval = TimeSpan.FromMinutes(100);
+            });
+
+
+
+            services.Configure<DataProtectionTokenProviderOptions>(option =>
+            {
+                option.TokenLifespan = TimeSpan.FromHours(5);
+            });
+
+
+
+            
+            services.Configure<SecurityStampValidatorOptions>(option =>
+            {
+                option.ValidationInterval = TimeSpan.FromMinutes(100);
+            });
+
+
+
+            services.Configure<DataProtectionTokenProviderOptions>(option =>
+            {
+                option.TokenLifespan = TimeSpan.FromHours(5);
+            });
+
         
+
+        }
+
 
     }
 }

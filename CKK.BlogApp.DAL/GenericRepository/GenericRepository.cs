@@ -1,5 +1,7 @@
-﻿using CKK.BlogApp.DAL.Repository;
+﻿using CKK.BlogApp.DAL.Context;
+using CKK.BlogApp.DAL.Repository;
 using CKK.BlogApp.Entities.Abstraction;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,34 +12,43 @@ namespace CKK.BlogApp.DAL.GenericRepository
 {
     public class GenericRepository<T> : IRepository<T> where T : class, IEntity
     {
-        public Task AddAsync(T entity)
+        private readonly AppDbContext _appDbContext;
+
+        public GenericRepository(AppDbContext appDbContext)
         {
-            throw new NotImplementedException();
+            _appDbContext = appDbContext;
         }
 
-        public Task DeleteAsync(T entity)
+        public void Add(T entity)
         {
-            throw new NotImplementedException();
+            _appDbContext.Set<T>().Add(entity);
+
         }
 
-        public Task<T> GetAllAsync()
+        public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            _appDbContext.Set<T>().Remove(entity);
         }
 
-        public Task<T> GetByIdAsync(int id)
+        public void GetAll()
         {
-            throw new NotImplementedException();
+            _appDbContext.Set<T>().ToList();
+           
+        }
+
+        public void GetById(int id)
+        {
+            _appDbContext.Set<T>().Find(id);
         }
 
         public IQueryable<T> GetQueryable()
         {
-            throw new NotImplementedException();
+            return _appDbContext.Set<T>().AsQueryable();
         }
 
-        public Task UpdateAsync(T entity)
+        public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _appDbContext.Update(entity);
         }
     }
 }
